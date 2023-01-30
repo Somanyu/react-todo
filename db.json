@@ -1,0 +1,25 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Somanyu Samal",
+            "age": 22,
+            "branch": "Information Technology",
+            "state": "Odisha"
+        },
+        {
+            "id": 2,
+            "name": "John Smith",
+            "age": 56,
+            "branch": "Telecommunication",
+            "state": "Delhi"
+        },
+        {
+            "id": 3,
+            "name": "Carlos Mike",
+            "age": 36,
+            "branch": "Computer Science",
+            "state": "Mumbai"
+        }
+    ]
+}
