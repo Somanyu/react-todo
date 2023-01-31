@@ -2,36 +2,54 @@ import React from "react";
 
 const Todo = ({ text, todos, todo, setTodos }) => {
 
-    const deleteHandler = () => {
-        setTodos(todos.filter(el => el.id !== todo.id));
+    const handleDelete = id => {
+        const deleteData = async () => {
+          await fetch(`http://localhost:3000/todos/${id}`, {
+            method: 'DELETE'
+          });
+          const updatedData = todos.filter(item => item.id !== id);
+          setTodos(updatedData);
+        };
+    
+        deleteData();
     }
 
-    const completeHandler = () => {
-        setTodos(todos.map((item) => {
-            if (item.id === todo.id) {
-                return {
-                    ...item, completed: !item.completed
-                }
+    const handleUpdate = (id) => {
+        const updateData = async () => {
+          await fetch(`http://localhost:3000/todos/${id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ completed: true })
+          });
+          const updatedData = todos.map(item => {
+            if (item.id === id) {
+              return { ...item, completed: true };
             }
             return item;
-        }))
-    }
+          });
+          setTodos(updatedData);
+        };
+    
+        updateData();
+      };
 
     return (
         <>
             <li className="list-group-item" style={{ border: "none" }}>
                 <div className="input-group">
-                    <input type="text" className={`form-control ${todo.completed ? "completed" : ""}`} value={text} readOnly />
+                    <input type="text" className={`form-control ${todo.completed ? "completed" : ""}`} value={todo.task} readOnly />
                     {todo.completed ?
-                        (<button onClick={completeHandler} className="btn btn-outline-success" type="button" disabled>
+                        (<button className="btn btn-outline-success" type="button" disabled>
                             <i className="fas fa-check"></i>
                         </button>)
                         :
-                        (<button onClick={completeHandler} className="btn btn-outline-success" type="button">
+                        (<button onClick={() => handleUpdate(todo.id)} className="btn btn-outline-success" type="button">
                             <i className="fas fa-check"></i>
                         </button>)
                     }
-                    <button onClick={deleteHandler} className="btn btn-outline-danger" type="button">
+                    <button onClick={() => handleDelete(todo.id)} className="btn btn-outline-danger" type="button">
                         <i className="fas fa-trash"></i>
                     </button>
                 </div>

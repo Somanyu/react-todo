@@ -6,8 +6,8 @@ const TodoList = ({ todos, setTodos, filterTodos }) => {
         <>
             <h1 className="text-center mt-5">TodoList Component</h1>
             <ul class="list-group list-group-flush w-50 m-auto">
-                {filterTodos !==0 && filterTodos.map(todo => (
-                    <Todo setTodos={setTodos} todo={todo} todos={todos} text={todo.text} key={todo.id} />
+                {filterTodos.map(todo => (
+                    <Todo setTodos={setTodos} todo={todo} todos={todos} text={todo} key={todo.id} />
                 ))}
 
             </ul>

@@ -1,25 +1,29 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "name": "Somanyu Samal",
-            "age": 22,
-            "branch": "Information Technology",
-            "state": "Odisha"
-        },
-        {
-            "id": 2,
-            "name": "John Smith",
-            "age": 56,
-            "branch": "Telecommunication",
-            "state": "Delhi"
-        },
-        {
-            "id": 3,
-            "name": "Carlos Mike",
-            "age": 36,
-            "branch": "Computer Science",
-            "state": "Mumbai"
-        }
-    ]
+  "todos": [
+    {
+      "id": 403,
+      "task": "Do laundry",
+      "completed": true
+    },
+    {
+      "id": 166,
+      "task": "Buy fruits",
+      "completed": true
+    },
+    {
+      "id": 494,
+      "task": "fwhfw",
+      "completed": true
+    },
+    {
+      "id": 291,
+      "task": "grrehri",
+      "completed": false
+    },
+    {
+      "id": 989,
+      "task": "vafghao",
+      "completed": false
+    }
+  ]
 }

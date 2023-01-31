@@ -13,40 +13,34 @@ function App() {
   const [filterTodos, setFilteredTodos] = useState([]);
 
 
-  // run once when website is loaded
   useEffect(() => {
-    const storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      setTodos(JSON.parse(storedTodos))
-    }
-  }, [])
+    const fetchData = async () => {
+      const res = await fetch('http://localhost:3000/todos');
+      const json = await res.json();
+      setTodos(json);
+    };
 
-  
+    fetchData();
+  }, []);
+
   useEffect(() => {
-    // filter todos
     const filterHandler = () => {
       switch (status) {
         case 'completed':
-          setFilteredTodos(todos.filter(todo => todo.completed === true))
+          setFilteredTodos(todos.filter(todo => todo.completed === true));
           break;
         case 'pending':
-          setFilteredTodos(todos.filter(todo => todo.completed === false))
+          setFilteredTodos(todos.filter(todo => todo.completed === false));
           break;
         default:
-          setFilteredTodos(todos);
+          setFilteredTodos(todos)
           break;
       }
-    }
-
+    };
     filterHandler();
-  }, [todos, status])
 
+  }, [todos, status]);
 
-
-  // save to local Storage
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos])
 
 
   return (

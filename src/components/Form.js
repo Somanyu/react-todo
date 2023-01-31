@@ -5,20 +5,39 @@ const Form = ({ setInputText, inputText, todos, setTodos, setStatus }) => {
     const inputTextHandler = (e) => {
         setInputText(e.target.value);
     }
+    
+    
+    const handleInsert = (e) => {
+        const insertData = async () => {
+            e.preventDefault();
+            await fetch('http://localhost:3000/todos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: Math.round(Math.random()*1000), task: inputText , completed: false})
+            });
+            const res = await fetch('http://localhost:3000/todos');
+            const json = await res.json();
+            if (res.status === 200) {
+                setTodos([...todos, json]);
+                setInputText('');
+                fetchData();
+            }
+        };
+        
+        insertData();
+    };
 
-    const submitTodoHandler = (e) => {
-        e.preventDefault();
-        setTodos([
-            ...todos,
-            { text: inputText, completed: false, id: Math.random() * 1000 }
-        ]);
-        setInputText('');
-    }
-
+    const fetchData = async () => {
+        const res = await fetch('http://localhost:3000/todos');
+        const json = await res.json();
+        setTodos(json);
+      };
+    
     const statusHandler = (e) => {
         setStatus(e.target.value);
     }
-
     return (
         <>
             <div className="card w-50 m-auto" style={{ border: "none" }}>
@@ -28,7 +47,7 @@ const Form = ({ setInputText, inputText, todos, setTodos, setStatus }) => {
                             <form className="d-flex justify-content-around">
                                 <div className="input-group mb-3 m-auto">
                                     <input value={inputText} onChange={inputTextHandler} type="text" className="form-control" placeholder="Add a Todo List" aria-label="Add a Todo List" aria-describedby="button-addon2" required/>
-                                    <button onClick={submitTodoHandler} className="btn btn-outline-primary" type="submit" id="button-addon2">Add Todo</button>
+                                    <button onClick={handleInsert} className="btn btn-outline-primary" type="submit" id="button-addon2">Add Todo</button>
                                 </div>
                             </form>
                         </div>
